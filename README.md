@@ -1,6 +1,6 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-I have been using Tailwind CSS for the styling
+I have been using Tailwind CSS for the styling [`Tailwind CSS`](https://tailwindcss.com/)
 
 ## Getting Started
 
