@@ -1,3 +1,4 @@
+import { ArrowLeftIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -33,7 +34,12 @@ const ProducScreen = () => {
 	return (
 		<Layout title={product.name}>
 			<div className="py-2">
-				<Link href="/">back to products</Link>
+				<Link href="/">
+					<a className="flex items-center">
+						<ArrowLeftIcon className="h-5 w-5 mr-1" />
+						back to products
+					</a>
+				</Link>
 			</div>
 			<div className="grid md:grid-cols-4 md:gap-3">
 				<div className="md:col-span-2">
