@@ -1,11 +1,18 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Store } from '../utils/Store';
 
 const Layout = ({ children, title }) => {
 	const { state, dispach } = useContext(Store);
 	const { cart } = state;
+	const [cartItemsCount, setCartItemsCount] = useState(0);
+
+	useEffect(() => {
+		setCartItemsCount(
+			cart.cartItems.reduce((prev, current) => prev + current.quantity, 0)
+		);
+	}, [cart.cartItems]);
 
 	return (
 		<>
@@ -18,18 +25,15 @@ const Layout = ({ children, title }) => {
 				<header>
 					<nav className="flex h-12 px-4 justify-between items-center shadow-md">
 						<Link href="/">
-							<a className="text-lg font-bold">Webshop</a>
+							<a className="text-lg font-bold">Webshop.</a>
 						</Link>
 						<div>
 							<Link href="/cart">
 								<a className="p-2">
 									Cart
-									{cart.cartItems.length > 0 && (
+									{cartItemsCount > 0 && (
 										<span className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
-											{cart.cartItems.reduce(
-												(prev, current) => prev + current.quantity,
-												0
-											)}
+											{cartItemsCount}
 										</span>
 									)}
 								</a>
