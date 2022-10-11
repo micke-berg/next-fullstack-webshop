@@ -5,6 +5,7 @@ import { XCircleIcon } from '@heroicons/react/outline';
 import Layout from '../components/Layout';
 import { Store } from '../utils/Store';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
 const CartScreen = () => {
 	const { state, dispatch } = useContext(Store);
@@ -19,13 +20,17 @@ const CartScreen = () => {
 		dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
 	};
 
+	const updateCartHandler = (item, qty) => {
+		const quantity = Number(qty);
+		dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } });
+	};
+
 	return (
 		<Layout title="Shopping Cart">
 			<h1 className="mb-4 text-xl">Shopping Cart</h1>
 			{cartItems.length === 0 ? (
 				<div>
-					Cart is empty.
-					<Link href="/">Go shopping</Link>
+					Cart is empty! <Link href="/">Go shopping</Link>
 				</div>
 			) : (
 				<div className="grid md:grid-cols-4 md:gap-5">
@@ -56,8 +61,21 @@ const CartScreen = () => {
 												</a>
 											</Link>
 										</td>
-										<td className="p-5 text-right">{item.quantity}</td>
-										<td className="p-5 text-right">{item.price}</td>
+										<td className="p-5 text-right">
+											<select
+												value={item.quantity}
+												onChange={(e) =>
+													updateCartHandler(item, e.target.value)
+												}
+											>
+												{[...Array(item.countInStock).keys()].map((x) => (
+													<option key={x + 1} value={x + 1}>
+														{x + 1}
+													</option>
+												))}
+											</select>
+										</td>
+										<td className="p-5 text-right">$ {item.price}</td>
 										<td className="p-5 text-center">
 											<button onClick={() => removeItemHandler(item)}>
 												<XCircleIcon className="h-5 w-5"></XCircleIcon>
@@ -78,7 +96,10 @@ const CartScreen = () => {
 										0
 									)}
 									) : ${' '}
-									{cartItems.reduce((prev, current) => prev + current.price, 0)}
+									{cartItems.reduce(
+										(prev, current) => prev + current.quantity * current.price,
+										0
+									)}
 								</div>
 							</li>
 							<li>
@@ -97,4 +118,4 @@ const CartScreen = () => {
 	);
 };
 
-export default CartScreen;
+export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
