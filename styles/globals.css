@@ -34,5 +34,11 @@ a {
 }
 
 .primary-button {
-	@apply rounded bg-orange-300 py-2 px-4 shadow outline-none hover:bg-orange-400 active:bg-orange-500;
+	@apply rounded bg-stone-300 py-2 px-4 shadow outline-none hover:bg-stone-400 active:bg-stone-500;
+}
+
+input,
+select,
+textarea {
+	@apply rounded border p-2 outline-none ring-indigo-300 focus:ring;
 }
