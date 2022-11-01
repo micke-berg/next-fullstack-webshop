@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useContext } from 'react';
-import { XCircleIcon } from '@heroicons/react/outline';
+import { XCircleIcon, ArrowLeftIcon } from '@heroicons/react/outline';
 import Layout from '../components/Layout';
 import { Store } from '../utils/Store';
 import { useRouter } from 'next/router';
@@ -27,7 +27,13 @@ const CartScreen = () => {
 
 	return (
 		<Layout title="Shopping Cart">
-			<h1 className="mb-4 text-xl">Shopping Cart</h1>
+			<Link href="/">
+				<a className="flex items-center">
+					<ArrowLeftIcon className="h-5 w-5 mr-1" />
+					Continue shopping
+				</a>
+			</Link>
+			<h1 className="mb-4 mt-2 text-xl">Shopping Cart</h1>
 			{cartItems.length === 0 ? (
 				<div>
 					Cart is empty! <Link href="/">Go shopping</Link>
@@ -104,7 +110,7 @@ const CartScreen = () => {
 							</li>
 							<li>
 								<button
-									onClick={() => router.push('/shipping')}
+									onClick={() => router.push('login?redirect=/shipping')}
 									className="primary-button w-full"
 								>
 									Check Out
