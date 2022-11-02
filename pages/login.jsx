@@ -33,7 +33,7 @@ const LoginScreen = () => {
 				email,
 				password,
 			});
-			if (result.erreor) {
+			if (result.error) {
 				toast.error(result.error);
 			}
 		} catch (err) {
@@ -91,9 +91,7 @@ const LoginScreen = () => {
 				</div>
 				<div className="mb-4">
 					Don&apos;t have an account? &nbsp;
-					<Link href="register">
-						<span className="text-blue-900 cursor-pointer">Register</span>
-					</Link>
+					<Link href="register">Register</Link>
 				</div>
 			</form>
 		</Layout>
