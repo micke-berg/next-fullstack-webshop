@@ -59,7 +59,7 @@ const LoginScreen = () => {
 								message: 'Please enter valid email',
 							},
 						})}
-						className="w-full"
+						className="w-full mb-1"
 						id="email"
 						autoFocus
 					/>
@@ -78,7 +78,7 @@ const LoginScreen = () => {
 								message: 'Password is more than 5 characters',
 							},
 						})}
-						className="w-full"
+						className="w-full mb-1"
 						id="password"
 						autoFocus
 					/>
@@ -87,11 +87,13 @@ const LoginScreen = () => {
 					)}
 				</div>
 				<div className="mb-4">
-					<button className="primary-button">Login</button>
+					<button className="black-button w-full sm:w-1/6">Login</button>
 				</div>
-				<div className="mb-4">
-					Don&apos;t have an account? &nbsp;
-					<Link href="register">Register</Link>
+				<div className="mb-4 ">
+					Don&apos;t have an account yet? &nbsp;
+					<Link href="register">
+						<span className="text-blue-700">Register</span>
+					</Link>
 				</div>
 			</form>
 		</Layout>
