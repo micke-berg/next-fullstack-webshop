@@ -36,19 +36,17 @@ const Layout = ({ children, title }) => {
 			<div className="flex min-h-screen flex-col justify-between">
 				<header>
 					<nav className="flex h-14 px-4 justify-between items-center bg-neutral-900">
-						<Link href="/">
-							<a className="text-lg font-bold text-white">Webshop.</a>
+						<Link href="/" className="text-lg font-bold text-white">
+							Webshop.
 						</Link>
 						<div className="flex align-middle">
-							<Link href="/cart">
-								<a className="p-2 text-white relative">
-									<SlBag className="h-6 w-6 mr-1 absolute right-5 top-0" />
-									{cartItemsCount > 0 && (
-										<span className="text-center rounded-full bg-white text-black w-5 h-5 text-xs absolute bottom-2 right-3 leading-5">
-											{cartItemsCount}
-										</span>
-									)}
-								</a>
+							<Link href="/cart" className="p-2 text-white relative">
+								<SlBag className="h-6 w-6 mr-1 absolute right-5 top-0" />
+								{cartItemsCount > 0 && (
+									<span className="text-center rounded-full bg-white text-black w-5 h-5 text-xs absolute bottom-2 right-3 leading-5">
+										{cartItemsCount}
+									</span>
+								)}
 							</Link>
 
 							{status === 'loading' ? (
@@ -82,9 +80,7 @@ const Layout = ({ children, title }) => {
 								</Menu>
 							) : (
 								<Link href="/login">
-									<a>
-										<SlUser className="h-6 w-6 text-white" />
-									</a>
+									<SlUser className="h-6 w-6 text-white" />
 								</Link>
 							)}
 						</div>

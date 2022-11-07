@@ -33,11 +33,9 @@ const CartScreen = () => {
 	return (
 		<Layout title="Shopping Cart">
 			{cartItems.length !== 0 && (
-				<Link href="/">
-					<a className="flex items-center text-gray-500 text-sm">
-						<SlArrowLeftCircle className="h-5 w-5 mr-2" />
-						Continue shopping
-					</a>
+				<Link href="/" className="flex items-center text-gray-500 text-sm">
+					<SlArrowLeftCircle className="h-5 w-5 mr-2" />
+					Continue shopping
 				</Link>
 			)}
 			<h1 className="mb-6 mt-2 text-xl border-b pb-4 pt-4">
@@ -47,7 +45,7 @@ const CartScreen = () => {
 				<div className="flex flex-col">
 					Cart is empty!{' '}
 					<Link href="/">
-						<button className="black-button w-full md:w-1/4 mt-4">
+						<button className="primary-button w-full md:w-1/4 mt-4">
 							<a>Go shopping</a>
 						</button>
 					</Link>
@@ -68,17 +66,18 @@ const CartScreen = () => {
 								{cartItems.map((item) => (
 									<tr key={item.slug} className="border-b text-gray-500">
 										<td>
-											<Link href={`/product/${item.slug}`}>
-												<a className="flex items-center ">
-													<Image
-														src={item.image}
-														alt={item.name}
-														width={70}
-														height={70}
-													></Image>
-													&nbsp; &nbsp;
-													{item.name}
-												</a>
+											<Link
+												href={`/product/${item.slug}`}
+												className="flex items-center "
+											>
+												<Image
+													src={item.image}
+													alt={item.name}
+													width={70}
+													height={70}
+												></Image>
+												&nbsp; &nbsp;
+												{item.name}
 											</Link>
 										</td>
 										<td className="p-5 text-right">
@@ -121,7 +120,7 @@ const CartScreen = () => {
 							<li>
 								<button
 									onClick={() => router.push('login?redirect=/shipping')}
-									className="black-button w-full"
+									className="primary-button w-full"
 								>
 									Check out{' '}
 								</button>
