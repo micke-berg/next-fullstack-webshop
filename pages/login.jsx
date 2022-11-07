@@ -87,7 +87,7 @@ const LoginScreen = () => {
 					)}
 				</div>
 				<div className="mb-4">
-					<button className="black-button w-full sm:w-1/6">Login</button>
+					<button className="primary-button w-full sm:w-1/6">Login</button>
 				</div>
 				<div className="mb-4 ">
 					Don&apos;t have an account yet? &nbsp;
