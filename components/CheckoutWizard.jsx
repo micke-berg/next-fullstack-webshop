@@ -24,9 +24,15 @@
 // export default CheckoutWizard;
 
 import Link from 'next/link';
-import React from 'react';
+import React, { useContext } from 'react';
+import { Store } from '../utils/Store';
 
 const CheckoutWizard = ({ activeStep = 0 }) => {
+	const { state } = useContext(Store);
+	const {
+		cart: { cartItems },
+	} = state;
+
 	const pages = [
 		{ page: '', title: 'User Login' },
 		{ page: '/shipping', title: 'Shipping Adress' },
@@ -37,17 +43,19 @@ const CheckoutWizard = ({ activeStep = 0 }) => {
 		<div className="mb-4 flex flex-wrap">
 			{pages.map((step, index) => (
 				<div
-					key={step.step}
+					key={step.title}
 					className={`flex-1 border-b-2 mb-2 pb-2 text-center ${
-						index <= activeStep
+						index <= activeStep && cartItems.length !== 0
 							? 'border-black text-black'
 							: 'border-gray-400 text-gray-400'
 					}`}
 				>
-					{index <= activeStep ? (
+					{cartItems.length === 0 ? (
+						<span>{step.title}</span>
+					) : index <= activeStep ? (
 						<Link href={`${step.page}`}>{step.title}</Link>
 					) : (
-						step.title
+						<span>{step.title}</span>
 					)}
 				</div>
 			))}
