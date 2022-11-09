@@ -51,3 +51,11 @@ textarea {
 .dropdown-link {
 	@apply flex p-3 hover:bg-neutral-800 border-b border-neutral-700 md:border-none;
 }
+
+.alert-error {
+	@apply my-3 bg-red-100 p-3 text-red-700;
+}
+
+.alert-success {
+	@apply my-3 bg-green-100 p-3 text-green-700;
+}
