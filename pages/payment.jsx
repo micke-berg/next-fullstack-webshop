@@ -1,14 +1,13 @@
-import React from 'react';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useState, useEffect } from 'react';
 import { FaPaypal, FaStripe } from 'react-icons/fa';
 import CheckoutWizard from '../components/CheckoutWizard';
 import Layout from '../components/Layout';
-import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { Store } from '../utils/Store';
-import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
+import { SlArrowLeft, SlArrowRight } from 'react-icons/sl';
 
 export default function PaymentScreen() {
 	const { state, dispatch } = useContext(Store);
@@ -51,7 +50,10 @@ export default function PaymentScreen() {
 	return (
 		<Layout title="Payment">
 			<CheckoutWizard activeStep={2} />
-			<form className="w-auto mwx-w-svreen-md" onSubmit={submitHandler}>
+			<form
+				className="mx-auto max-w-screen-md md:mt-12"
+				onSubmit={submitHandler}
+			>
 				<h1 className="mb-4 text-xl"> Payment Method</h1>
 				{paymentOptions.map((payment) => (
 					<div key={payment.option} className="mb-4 flex w-full">
@@ -73,12 +75,16 @@ export default function PaymentScreen() {
 				<div className="mb-4 flex justify-between">
 					<button
 						type="button"
-						className="secondary-button"
+						className="secondary-button flex justify-between align-middle"
 						onClick={() => router.push('/shipping')}
 					>
+						<SlArrowLeft className="mr-2 mt-1" />
 						Back
 					</button>
-					<button className="primary-button">Next</button>
+					<button className="primary-button flex justify-between align-middle">
+						Next
+						<SlArrowRight className="text-white ml-2 mt-1" />
+					</button>
 				</div>
 			</form>
 		</Layout>
