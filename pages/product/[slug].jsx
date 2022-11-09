@@ -76,7 +76,7 @@ const ProducScreen = (props) => {
 					></Image>
 				</div>
 				<div>
-					<ul className="mb-4 font-thin w-full ">
+					<ul className="mb-4 font-thin w-full flex flex-col">
 						<li>
 							<h1 className="text-lg border-b border-black mb-1 inline-block font-medium ">
 								{product.brand}
