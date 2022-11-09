@@ -22,8 +22,6 @@ export default function ShippingScreen() {
 		setValue,
 	} = useForm();
 
-	console.log(cart);
-
 	useEffect(() => {
 		setValue('fullName', shippingAddress.fullName);
 		setValue('address', shippingAddress.address);
@@ -57,11 +55,12 @@ export default function ShippingScreen() {
 	return (
 		<Layout title="Shipping Address">
 			<CheckoutWizard activeStep={1} />
-			<Link href="/cart">
-				<a className="flex items-center text-gray-500 mb-4 text-sm">
-					<SlArrowLeftCircle className="h-5 w-5 mr-2" />
-					Back to cart
-				</a>
+			<Link
+				href="/cart"
+				className="flex items-center text-gray-500 mb-4 text-sm"
+			>
+				<SlArrowLeftCircle className="h-5 w-5 mr-2" />
+				Back to cart
 			</Link>
 			<form
 				className="mx-auto max-w-screen-md"
@@ -150,7 +149,7 @@ export default function ShippingScreen() {
 					)}
 				</div>
 				<div className="mt-4 ">
-					<button className="black-button w-full sm:w-1/6">Next</button>
+					<button className="primary-button w-full sm:w-1/6">Next</button>
 				</div>
 			</form>
 		</Layout>
