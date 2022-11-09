@@ -24,14 +24,6 @@ export default function PlaceorderScreen() {
 		}
 	}, [paymentMethod, router]);
 
-	useEffect(() => {
-		setHasMounted(true);
-	}, []);
-
-	if (!hasMounted) {
-		return null;
-	}
-
 	const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100;
 
 	const itemsPrice = round2(
@@ -67,14 +59,8 @@ export default function PlaceorderScreen() {
 			);
 			router.push(`/order/${data._id}`);
 		} catch (err) {
-			console.log('object');
 			setLoading(false);
-			toast.error(getError(err), {
-				autoClose: 1500,
-				hideProgressBar: false,
-				closeOnClick: true,
-				progress: undefined,
-			});
+			toast.error(getError(err));
 		}
 	};
 
@@ -98,7 +84,7 @@ export default function PlaceorderScreen() {
 							<h2 className="mb-4 text-lg">Shipping Address</h2>
 							<div className="mb-2">
 								{shippingAddress.fullName}, {shippingAddress.address},{' '}
-								{shippingAddress.city}, {shippingAddress.postalCode},{' '}
+								{shippingAddress.postalCode} {shippingAddress.city},{' '}
 								{shippingAddress.country}
 							</div>
 							<div>
