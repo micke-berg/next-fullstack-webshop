@@ -8,6 +8,8 @@ import Layout from '../components/Layout';
 import { Store } from '../utils/Store';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const CartScreen = () => {
 	const { state, dispatch } = useContext(Store);
@@ -25,8 +27,12 @@ const CartScreen = () => {
 		dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
 	};
 
-	const updateCartHandler = (item, qty) => {
+	const updateCartHandler = async (item, qty) => {
 		const quantity = Number(qty);
+		const { data } = await axios.get(`/api/products/${item._id}`);
+		if (data.countInStock < quantity) {
+			return toast.error('Sorry product is out of stock');
+		}
 		dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } });
 	};
 
@@ -46,7 +52,7 @@ const CartScreen = () => {
 					Cart is empty!{' '}
 					<Link href="/">
 						<button className="primary-button w-full md:w-1/4 mt-4">
-							<a>Go shopping</a>
+							Go shopping
 						</button>
 					</Link>
 				</div>
@@ -54,7 +60,7 @@ const CartScreen = () => {
 				<div className="grid md:grid-cols-4 md:gap-5">
 					<div className="overflow-x-auto md:col-span-3 mb-4">
 						<table className="min-w-full">
-							<thead className="border-b text-bold">
+							<thead className="border-neutral-900 border-b text-bold">
 								<tr>
 									<th className="pr-5 text-left">Item</th>
 									<th className="p-5 text-right">Quantity</th>
@@ -64,7 +70,7 @@ const CartScreen = () => {
 							</thead>
 							<tbody>
 								{cartItems.map((item) => (
-									<tr key={item.slug} className="border-b text-gray-500">
+									<tr key={item.slug} className="border-b text-neutral-700">
 										<td>
 											<Link
 												href={`/product/${item.slug}`}
@@ -86,6 +92,7 @@ const CartScreen = () => {
 												onChange={(e) =>
 													updateCartHandler(item, e.target.value)
 												}
+												className="border-1 border-neutral-300 p-3 bg-none outline-none"
 											>
 												{[...Array(item.countInStock).keys()].map((x) => (
 													<option key={x + 1} value={x + 1}>
@@ -98,7 +105,6 @@ const CartScreen = () => {
 										<td className="p-5 text-center">
 											<button onClick={() => removeItemHandler(item)}>
 												<TfiTrash className="h-5 w-5" />
-												{/* <SlClose className="h-5 w-5"></SlClose> */}
 											</button>
 										</td>
 									</tr>
@@ -109,12 +115,16 @@ const CartScreen = () => {
 					<div>
 						<ul>
 							<li>
-								<div className="pb-3 text-gray-600">
-									Subtotal: ${' '}
-									{cartItems.reduce(
-										(prev, current) => prev + current.quantity * current.price,
-										0
-									)}
+								<div className="pb-3 flex justify-between font-semibold">
+									Subtotal:
+									<span>
+										$&nbsp;
+										{cartItems.reduce(
+											(prev, current) =>
+												prev + current.quantity * current.price,
+											0
+										)}
+									</span>
 								</div>
 							</li>
 							<li>
