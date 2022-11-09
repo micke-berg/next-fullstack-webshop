@@ -71,7 +71,7 @@ export default function ShippingScreen() {
 					<input
 						placeholder="Full Name"
 						type="text"
-						className="w-full mt-4 mb-1 mb-1"
+						className="w-full mt-4 mb-1"
 						id="fullName"
 						autoFocus
 						{...register('fullName', {

@@ -92,7 +92,6 @@ const CartScreen = () => {
 												onChange={(e) =>
 													updateCartHandler(item, e.target.value)
 												}
-												className="border-1 border-neutral-300 p-3 bg-none outline-none"
 											>
 												{[...Array(item.countInStock).keys()].map((x) => (
 													<option key={x + 1} value={x + 1}>
@@ -134,6 +133,9 @@ const CartScreen = () => {
 								>
 									Check out{' '}
 								</button>
+								<div className="border border-neutral-900 py-2 px-4 mt-4 text-center">
+									Free shipping on orders over $ 200
+								</div>
 							</li>
 						</ul>
 					</div>
