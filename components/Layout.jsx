@@ -3,13 +3,14 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Menu } from '@headlessui/react';
 import { Store } from '../utils/Store';
 import DropdownLink from './DropdownLink';
 import Cookies from 'js-cookie';
 import { SlUser, SlBag } from 'react-icons/sl';
 
-const Layout = ({ children, title }) => {
+const Layout = ({ children, title, background = '' }) => {
 	const { status, data: session } = useSession();
 	const { state, dispatch } = useContext(Store);
 	const { cart } = state;
@@ -19,7 +20,7 @@ const Layout = ({ children, title }) => {
 		setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
 	}, [cart.cartItems]);
 
-	const logutClickHandler = () => {
+	const logoutClickHandler = () => {
 		Cookies.remove('cart');
 		dispatch({ type: 'CART_RESET' });
 		signOut({ callbackUrl: '/login' });
@@ -32,8 +33,10 @@ const Layout = ({ children, title }) => {
 				<meta name="description" content="Fullstack webshop" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<ToastContainer possition limit={1} />
-			<div className="flex min-h-screen flex-col justify-between">
+			<ToastContainer position="bottom-center" limit={1} />
+			<div
+				className={`flex min-h-screen flex-col justify-between ${background}`}
+			>
 				<header>
 					<nav className="flex h-14 px-4 justify-between items-center bg-neutral-900">
 						<Link href="/" className="text-lg font-bold text-white">
@@ -54,7 +57,7 @@ const Layout = ({ children, title }) => {
 							) : session?.user ? (
 								<Menu as="div" className="relative inline-block z-10 ">
 									<Menu.Button className="text-white">
-										{session.user.name}
+										{session?.user.name}
 									</Menu.Button>
 									<Menu.Items className="fixed  w-full md:absolute md:w-56 right-0 top-12 origin-top-right bg-neutral-900 text-white">
 										<Menu.Item>
@@ -68,13 +71,15 @@ const Layout = ({ children, title }) => {
 											</DropdownLink>
 										</Menu.Item>
 										<Menu.Item>
-											<a
-												href="#"
+											<Link
+												// legacyBehavior
 												className="dropdown-link"
-												onClick={logutClickHandler}
+												href="#"
+												onClick={logoutClickHandler}
 											>
 												Logout
-											</a>
+												{/* <a className="dropdown-link">Logout</a> */}
+											</Link>
 										</Menu.Item>
 									</Menu.Items>
 								</Menu>
