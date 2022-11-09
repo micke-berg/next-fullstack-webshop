@@ -10,21 +10,13 @@ import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 
-const PaymentScreen = () => {
-	const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
-
+export default function PaymentScreen() {
 	const { state, dispatch } = useContext(Store);
 	const { cart } = state;
 	const { shippingAddress, paymentMethod } = cart;
+	const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
 
 	const router = useRouter();
-	const paymentOptions = [
-		{ option: 'PayPal', icon: <FaPaypal /> },
-		{ option: 'Stripe', icon: <FaStripe /> },
-		{ option: 'Cash on delivery', icon: '' },
-	];
-
-	console.log('cart', cart.shippingAddress);
 
 	const submitHandler = (e) => {
 		e.preventDefault();
@@ -50,6 +42,12 @@ const PaymentScreen = () => {
 		setSelectedPaymentMethod(paymentMethod || '');
 	}, [paymentMethod, router, shippingAddress.address]);
 
+	const paymentOptions = [
+		{ option: 'PayPal', icon: <FaPaypal /> },
+		{ option: 'Stripe', icon: <FaStripe /> },
+		{ option: 'Cash on delivery', icon: '' },
+	];
+
 	return (
 		<Layout title="Payment">
 			<CheckoutWizard activeStep={2} />
@@ -70,7 +68,6 @@ const PaymentScreen = () => {
 								{payment.option}
 							</label>
 						</div>
-						{/* {payment.icon} */}
 					</div>
 				))}
 				<div className="mb-4 flex justify-between">
@@ -86,6 +83,6 @@ const PaymentScreen = () => {
 			</form>
 		</Layout>
 	);
-};
+}
 
-export default PaymentScreen;
+PaymentScreen.auth = true;
