@@ -1,8 +1,10 @@
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useReducer } from 'react';
+import { toast } from 'react-toastify';
 import Layout from '../../components/Layout';
 import { getError } from '../../utils/error';
 
@@ -14,20 +16,39 @@ function reducer(state, action) {
 			return { ...state, loading: false, order: action.payload, error: '' };
 		case 'FETCH_FAIL':
 			return { ...state, loading: false, error: action.payload };
+		case 'PAY_REQUEST':
+			return {
+				...state,
+				loadingPay: true,
+			};
+		case 'PAY_SUCCESS':
+			return {
+				...state,
+				loadingPay: false,
+				successPay: true,
+			};
+		case 'PAY_FAIL':
+			return {
+				...state,
+				loadingPay: false,
+				errorPay: action.payload,
+			};
 		default:
 			state;
 	}
 }
 
 export default function OrderScreen() {
+	const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 	const { query } = useRouter();
 	const orderId = query.id;
 
-	const [{ loading, error, order }, dispatch] = useReducer(reducer, {
-		loading: true,
-		order: {},
-		error: '',
-	});
+	const [{ loading, error, order, successPay, loadingPay }, dispatch] =
+		useReducer(reducer, {
+			loading: true,
+			order: {},
+			error: '',
+		});
 
 	useEffect(() => {
 		const fetchOrder = async () => {
@@ -39,10 +60,67 @@ export default function OrderScreen() {
 				dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
 			}
 		};
-		if (!order._id || (order._id && order._id !== orderId)) {
+		if (!order._id || successPay || (order._id && order._id !== orderId)) {
 			fetchOrder();
+			if (successPay) {
+				dispatch({ type: 'PAY_RESET' });
+			}
+		} else {
+			const loadPaypalScript = async () => {
+				const { data: clientId } = await axios.get('/api/keys/paypal');
+				paypalDispatch({
+					type: 'resetOptions',
+					value: {
+						'client-id': clientId,
+						currency: 'USD',
+					},
+				});
+				paypalDispatch({ type: 'setLoadiingStatus', value: 'pending' });
+			};
+			loadPaypalScript();
 		}
-	}, [order, orderId]);
+	}, [order, orderId, paypalDispatch, successPay]);
+
+	function createOrder(data, actions) {
+		return actions.order
+			.create({
+				purchase_units: [{ amount: { value: totalPrice } }],
+			})
+			.then((orderId) => {
+				return orderId;
+			});
+	}
+
+	// function createOrder(data, actions) {
+	// 	return actions.order
+	// 		.create({
+	// 			purchase_units: [{ amount: { value: totalPrice }},],
+	// 		})
+	// 		.then((orderId) => {
+	// 			return orderId;
+	// 		});
+	// }
+
+	function onApprove(data, actions) {
+		return actions.order.capture().then(async function (details) {
+			try {
+				dispatch({ type: 'PAY_REQUEST' });
+				const { data } = await axios.put(
+					`/api/orders/${order._id}/pay`,
+					details
+				);
+				dispatch({ type: 'PAY_SUCCESS', payload: data });
+				toast.success('Order is paid successgully');
+			} catch (err) {
+				dispatch({ type: 'PAY_FAIL', payload: getError(err) });
+				toast.error(getError(err));
+			}
+		});
+	}
+
+	const onError = (err) => {
+		toast.error(getError(err));
+	};
 
 	const {
 		shippingAddress,
@@ -58,7 +136,9 @@ export default function OrderScreen() {
 		deliveredAt,
 	} = order;
 
-	console.log('orderItems', orderItems);
+	const formatDate = (date) => {
+		return date.replace('T', ' ').replace('Z', '').slice(0, -4);
+	};
 
 	return (
 		<Layout title={`Order ${orderId}`} background="bg-neutral-100">
@@ -80,7 +160,9 @@ export default function OrderScreen() {
 								) : null}
 							</div>
 							{isDelivered ? (
-								<div className="alert-success">Delivered at {deliveredAt}</div>
+								<div className="alert-success">
+									Delivered at {formatDate(deliveredAt)}
+								</div>
 							) : (
 								<div className="alert-error">Not delivered</div>
 							)}
@@ -89,7 +171,9 @@ export default function OrderScreen() {
 							<h2 className="mb-2 text-lg">Payment Method</h2>
 							<div className="mb-2">{paymentMethod}</div>
 							{isPaid ? (
-								<div className="alert-success">Paid at {paidAt}</div>
+								<div className="alert-success">
+									Paid at {formatDate(paidAt)}
+								</div>
 							) : (
 								<div className="alert-error">Not paid</div>
 							)}
@@ -165,6 +249,22 @@ export default function OrderScreen() {
 									<div>{totalPrice ? `$ ${totalPrice}` : null}</div>
 								</div>
 							</li>
+							{!isPaid && (
+								<li>
+									{isPending ? (
+										<div>Loading...</div>
+									) : (
+										<div className="w-full mt-2">
+											<PayPalButtons
+												createOrder={createOrder}
+												onApprove={onApprove}
+												onError={onError}
+											></PayPalButtons>
+										</div>
+									)}
+									{loadingPay && <div>Loading...</div>}
+								</li>
+							)}
 						</ul>
 					</div>
 				</div>
