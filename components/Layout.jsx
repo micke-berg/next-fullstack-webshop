@@ -59,14 +59,17 @@ const Layout = ({ children, title, background = '' }) => {
 									<Menu.Button className="text-white">
 										{session?.user.name}
 									</Menu.Button>
-									<Menu.Items className="fixed  w-full md:absolute md:w-56 right-0 top-12 origin-top-right bg-neutral-900 text-white">
+									<Menu.Items className="fixed w-full md:absolute md:w-56 md:top-10 right-0 top-14 origin-top-right bg-neutral-900 border-emerald-300 border-t-2 text-white">
 										<Menu.Item>
 											<DropdownLink className="dropdown-link" href="/profile">
 												Profile
 											</DropdownLink>
 										</Menu.Item>
 										<Menu.Item>
-											<DropdownLink className="dropdown-link" href="/profile">
+											<DropdownLink
+												className="dropdown-link"
+												href="/order-history"
+											>
 												Order history
 											</DropdownLink>
 										</Menu.Item>
@@ -78,7 +81,6 @@ const Layout = ({ children, title, background = '' }) => {
 												onClick={logoutClickHandler}
 											>
 												Logout
-												{/* <a className="dropdown-link">Logout</a> */}
 											</Link>
 										</Menu.Item>
 									</Menu.Items>
