@@ -11,7 +11,6 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 export default function PlaceorderScreen() {
-	const [hasMounted, setHasMounted] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const { state, dispatch } = useContext(Store);
 	const { cart } = state;
