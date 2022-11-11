@@ -26,7 +26,7 @@ const data = {
 			rating: 4.5,
 			numReviews: 8,
 			countInStock: 20,
-			decription: 'A popular shirt',
+			description: 'A popular shirt',
 		},
 		{
 			name: 'Fit shirt',
@@ -38,7 +38,7 @@ const data = {
 			rating: 3.2,
 			numReviews: 10,
 			countInStock: 20,
-			decription: 'A popular shirt',
+			description: 'A popular shirt',
 		},
 		{
 			name: 'Slim shirt',
@@ -50,7 +50,7 @@ const data = {
 			rating: 4.5,
 			numReviews: 13,
 			countInStock: 20,
-			decription: 'Smart looking shirt',
+			description: 'Smart looking shirt',
 		},
 		{
 			name: 'Golf pants',
@@ -62,7 +62,7 @@ const data = {
 			rating: 2.9,
 			numReviews: 13,
 			countInStock: 20,
-			decription: 'Smart looking pants',
+			description: 'Smart looking pants',
 		},
 		{
 			name: 'Fit pants',
@@ -74,7 +74,7 @@ const data = {
 			rating: 3.5,
 			numReviews: 7,
 			countInStock: 20,
-			decription: 'A popular pant',
+			description: 'A popular pant',
 		},
 		{
 			name: 'Classic pants',
@@ -86,7 +86,7 @@ const data = {
 			rating: 2.4,
 			numReviews: 14,
 			countInStock: 20,
-			decription: 'A popular pant',
+			description: 'A popular pant',
 		},
 	],
 };
