@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
-import { SlArrowLeftCircle, SlClose } from 'react-icons/sl';
+import { SlArrowLeftCircle } from 'react-icons/sl';
 import { TfiTrash } from 'react-icons/tfi';
 
 import Layout from '../components/Layout';
