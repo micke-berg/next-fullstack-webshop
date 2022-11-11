@@ -75,7 +75,7 @@ export default function OrderScreen() {
 						currency: 'USD',
 					},
 				});
-				paypalDispatch({ type: 'setLoadiingStatus', value: 'pending' });
+				paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
 			};
 			loadPaypalScript();
 		}

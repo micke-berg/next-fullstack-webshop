@@ -6,7 +6,7 @@ import bcryptjs from 'bcryptjs';
 
 export default NextAuth({
 	session: {
-		stategy: 'jwt',
+		strategy: 'jwt',
 	},
 	callbacks: {
 		async jwt({ token, user }) {
