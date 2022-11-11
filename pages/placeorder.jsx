@@ -106,7 +106,7 @@ export default function PlaceorderScreen() {
 							<h2 className="text-lg">Order Items</h2>
 							<table className="min-w-full">
 								<thead className="text-bold border-b border-neutral-900">
-									<tr className="">
+									<tr>
 										<th className="pr-5 text-left">Item</th>
 										<th className="p-5 text-right">Quantity</th>
 										<th className="p-5 text-right">Price</th>
