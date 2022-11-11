@@ -73,6 +73,16 @@ const Layout = ({ children, title, background = '' }) => {
 												Order history
 											</DropdownLink>
 										</Menu.Item>
+										{session.user.isAdmin && (
+											<Menu.Item>
+												<DropdownLink
+													className="dropdown-link"
+													href="/admin/dashboard"
+												>
+													Admin Dashboard
+												</DropdownLink>
+											</Menu.Item>
+										)}
 										<Menu.Item>
 											<Link
 												// legacyBehavior
