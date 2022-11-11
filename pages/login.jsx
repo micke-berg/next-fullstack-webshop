@@ -92,7 +92,7 @@ const LoginScreen = () => {
 				<div className="mb-4 ">
 					Don&apos;t have an account yet? &nbsp;
 					<Link href="register">
-						<span className="text-blue-700">Register</span>
+						<span className="text-blue-700 cursor-pointer">Register</span>
 					</Link>
 				</div>
 			</form>
