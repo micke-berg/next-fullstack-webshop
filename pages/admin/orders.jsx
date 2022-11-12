@@ -30,7 +30,7 @@ function reducer(state, action) {
 	}
 }
 
-const AdimnOrderScreen = () => {
+const AdminOrderScreen = () => {
 	const [{ loading, error, orders }, dispatch] = useReducer(reducer, {
 		loading: true,
 		orders: [],
@@ -142,5 +142,5 @@ const AdimnOrderScreen = () => {
 	);
 };
 
-AdimnOrderScreen.auth = { adminOnly: true };
-export default AdimnOrderScreen;
+AdminOrderScreen.auth = { adminOnly: true };
+export default AdminOrderScreen;
