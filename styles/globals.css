@@ -52,6 +52,10 @@ textarea {
 	@apply flex py-3 px-4 hover:bg-neutral-800 border-b border-neutral-700 md:border-none;
 }
 
+.hover-link {
+	@apply hover:border-b inline-block border-neutral-900;
+}
+
 .alert-error {
 	@apply my-3 bg-red-100 p-3 text-red-700;
 }
