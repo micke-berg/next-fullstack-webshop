@@ -85,7 +85,6 @@ const Layout = ({ children, title, background = '' }) => {
 										)}
 										<Menu.Item>
 											<Link
-												// legacyBehavior
 												className="dropdown-link"
 												href="#"
 												onClick={logoutClickHandler}
