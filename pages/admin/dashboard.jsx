@@ -95,22 +95,22 @@ const AdminDashboardSceen = () => {
 				<div>
 					<ul>
 						<li>
-							<Link href="/admin/dashboard" className="font-bold">
+							<Link className="hover-link font-normal" href="/admin/dashboard">
 								Dashboard
 							</Link>
 						</li>
 						<li>
-							<Link href="/admin/orders" className="font-bold">
+							<Link className="hover-link font-normal" href="/admin/orders">
 								Orders
 							</Link>
 						</li>
 						<li>
-							<Link href="/admin/products" className="font-bold">
+							<Link className="hover-link font-normal" href="/admin/products">
 								Products
 							</Link>
 						</li>
 						<li>
-							<Link href="/admin/users" className="font-bold">
+							<Link className="hover-link font-normal" href="/admin/users">
 								Users
 							</Link>
 						</li>
@@ -126,28 +126,28 @@ const AdminDashboardSceen = () => {
 						<div>
 							<div className="grid gird-cols-1 md:grid-cols-4 gap-5 mb-5">
 								<div className="p-5 bg-white">
-									<p className="text-3xl">$ {summary.ordersPrice}</p>
+									<p className="text-xl">$ {summary.ordersPrice}</p>
 									<p>Sales</p>
 									<Link className="text-blue-600" href="/admin/orders">
 										View sales
 									</Link>
 								</div>
 								<div className="p-5 bg-white">
-									<p className="text-3xl">$ {summary.ordersCount}</p>
+									<p className="text-xl">$ {summary.ordersCount}</p>
 									<p>Orders</p>
 									<Link className="text-blue-600" href="/admin/orders">
 										View orders
 									</Link>
 								</div>
 								<div className="p-5 bg-white">
-									<p className="text-3xl">$ {summary.productsCount}</p>
+									<p className="text-xl">$ {summary.productsCount}</p>
 									<p>Products</p>
 									<Link className="text-blue-600" href="/admin/products">
 										View products
 									</Link>
 								</div>
 								<div className="p-5 bg-white">
-									<p className="text-3xl">$ {summary.usersCount}</p>
+									<p className="text-xl">$ {summary.usersCount}</p>
 									<p>Users</p>
 									<Link className="text-blue-600" href="/admin/users">
 										View users
